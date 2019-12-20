@@ -20,8 +20,7 @@ struct LandmarkDetail: View {
     var body: some View {
         VStack{
             MapView(coordinate: landmark.locationCoordinate).edgesIgnoringSafeArea(.top).frame(height:300)
-                
-            CircleImage().offset(y: -130).padding(.bottom,-130)
+            CircleImage(image: landmark.image).offset(y: -130).padding(.bottom,-130)
             VStack(alignment: .leading){
                 HStack{
                     Text(verbatim: landmark.name).font(.title).foregroundColor(.green)

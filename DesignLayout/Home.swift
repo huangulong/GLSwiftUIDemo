@@ -11,9 +11,10 @@ import SwiftUI
 struct CategoryHome: View {
     
     var categories: [String: [Landmark]] {
-        Dictionary(grouping: landmarkData by:{
-            $0.category.rawValue
-        })
+        Dictionary(
+            grouping: landmarkData,
+            by: { $0.category.rawValue }
+        )
     }
     
     var featured:[Landmark] {
@@ -42,9 +43,16 @@ struct CategoryHome: View {
                 .frame(height: 200)
                 .clipped()
                 .listRowInsets(EdgeInsets())
-//                ForEach(categories.keys.sorted(), id: \.self) { (key) in
-//
-//                }
+                ForEach(categories.keys.sorted(), id: \.self) { key in
+                    CategoryRow(categoryName: key, items: self.categories[key]!)
+                }.listRowInsets(EdgeInsets())
+                NavigationLink(destination: LandmarkList()) {
+                    Text("See All")
+                }
+            }.navigationBarTitle(Text("Featured"))
+            .navigationBarItems(trailing: profileButton)
+                .sheet(isPresented: $showingProfile) {
+                    ProfileHost().environmentObject(self.userData)
             }
         }
     }
