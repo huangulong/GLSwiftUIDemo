@@ -40,13 +40,13 @@ struct CategoryHome: View {
             List {
                 FeatureLandmarks(landmarks: featured)
                 .scaledToFill()
-                .frame(height: 200)
+                    .frame(height: CGFloat(200))
                 .clipped()
                 .listRowInsets(EdgeInsets())
                 ForEach(categories.keys.sorted(), id: \.self) { key in
                     CategoryRow(categoryName: key, items: self.categories[key]!)
                 }.listRowInsets(EdgeInsets())
-                NavigationLink(destination: LandmarkList()) {
+                NavigationLink(destination: LandmarkList { LandmarkDetail(landmark: $0) }) {
                     Text("See All")
                 }
             }.navigationBarTitle(Text("Featured"))
